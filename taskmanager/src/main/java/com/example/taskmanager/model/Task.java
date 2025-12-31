@@ -1,4 +1,5 @@
 package com.example.taskmanager.model;
+// sonar trigger
 
 import jakarta.persistence.*;
 
