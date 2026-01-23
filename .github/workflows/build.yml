@@ -37,9 +37,18 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      # ---- DEBUG STEP (shows real file structure in GitHub runner) ----
+      - name: Show workspace files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Listing files:"
+          ls -la
+
+      # ---- BUILD + SONARCLOUD ANALYSIS ----
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=23suca39-creator_Task-Manager \
           -Dsonar.organization=23suca39-creator
